@@ -1,0 +1,47 @@
+div.outer-container {
+    margin: auto;
+    margin-top: 5%;
+    width: 60%;
+    height: 70%;
+    border: none;
+    background-color: #BBBBBB;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+p.header {
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.input-box {
+    width: 28%;
+    font-size: 1400%;
+    display: block;
+    margin: auto;
+    padding: 5px 0 5px 5px;
+    border-radius: 4px;
+}
+
+.input-box:focus {
+    outline: none;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-button {
+    width: 20%;
+    height: 50px;
+    margin: auto;
+    margin-top: 2%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: darkgray;
+}

@@ -1,0 +1,44 @@
+.order-box {
+    width: 100%;
+    height: 8%;
+    border-radius: 5px;
+    border: hidden;
+    padding: 2px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    margin: 1%;
+    border: 1px solid lightgray;
+}
+
+.food-name {
+    font-size: 20px;
+    margin: .5% auto 0 1%;
+}
+
+.amount {
+    margin-top: .3%;
+    height: 75%;
+    width: 5%;
+    margin-right: 5%;
+    font-size: 16px;
+}
+
+.amount[type=number]::-webkit-inner-spin-button, 
+.amount[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+    height: 30px;
+}
+
+.special-req {
+    width: 15%;
+    height: 100%;
+    margin-right: 4%;
+    cursor: pointer;
+}
+
+.delete-button {
+    margin-right: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -1,0 +1,12 @@
+.box {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid gray;
+    border-radius: 8px;
+    padding-top: 5px;
+    right: 1%;
+    top: 1%;
+    text-align: center;
+    z-index: 1000;
+}

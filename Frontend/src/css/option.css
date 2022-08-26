@@ -1,0 +1,27 @@
+
+.outer-box {
+    width: 15%;
+    height: 20%;
+    border: 2px solid gray;
+    background-color: #BBBBBB;
+    margin-top: 5%;
+    margin-left: 5%;
+    padding: 10px;
+}
+
+.button-content {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.button-name {
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.box-hover:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
