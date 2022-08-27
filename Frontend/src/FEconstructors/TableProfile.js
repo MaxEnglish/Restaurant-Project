@@ -23,11 +23,12 @@ export default class TableProfile {
     }
 
     addGuest () {
-        return this.guests.push(new Guest());
+       this.guests.push(new Guest());
     }
 
     removeGuest (guestIndex) {
         this.guests.splice(guestIndex, 1);
+        console.log(this.guests);
     }
 
     addToOrder (guestIndex, order) {
@@ -48,6 +49,15 @@ export default class TableProfile {
 
     clearTable () {
         this.setGuests([]);
+    }
+
+    getOrderAmount (guestIndex, order) {
+        var guest = this.guests[guestIndex];
+        return guest.getAmounts()[guest.getOrders().indexOf(order)];
+    }
+
+    setOrderAmount (guestIndex, order, newAmount) {
+        this.guests[guestIndex].changeAmount(newAmount,order);
     }
 
     orderToString () {

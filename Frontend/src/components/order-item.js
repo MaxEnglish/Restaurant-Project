@@ -12,11 +12,11 @@ function OrderItem(props) {
         <div className='order-box'>
             <div className='food-name'>{`${props.sides.length !== 0 ? props.name + ' w/ ' + props.sides : props.name}`}</div>
             <input
-            id="newObject"
+            contentEditable={true}
             className='amount'
             type="number"
             onChange = {props.onChange}
-            placeholder={1}
+            defaultValue={props.value}
             min={0}
             >
             </input>
