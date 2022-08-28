@@ -85,12 +85,24 @@
     padding-left: 5px;
 }
 
-
-.review-button {
-    right: 357px;
+.special-req-button {
+    right: 41.5%;
     bottom: 20px;
     position: absolute;
-    width: 15%;
+    width: 13.5%;
+    height: 14%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+.review-button {
+    right: 23.2%;
+    bottom: 20px;
+    position: absolute;
+    width: 13.5%;
     height: 14%;
     border: 1px solid gray;
     border-radius: 5px;
@@ -99,10 +111,10 @@
 }
 
 .new-customer-button {
-    right: 77px;
+    right: 5%;
     bottom: 20px;
     position: absolute;
-    width: 15%;
+    width: 13.5%;
     height: 14%;
     border: 1px solid gray;
     border-radius: 5px;

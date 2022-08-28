@@ -1,3 +1,4 @@
+import { TiThSmall } from 'react-icons/ti';
 import Guest from './Guest'
 
 export default class TableProfile {
@@ -24,19 +25,22 @@ export default class TableProfile {
 
     addGuest () {
        this.guests.push(new Guest());
+       return this;
     }
 
     removeGuest (guestIndex) {
         this.guests.splice(guestIndex, 1);
-        console.log(this.guests);
+        return this;
     }
 
     addToOrder (guestIndex, order) {
         this.guests[guestIndex].addOrder(order);
+        return this;
     }
 
     removeFromOrder (guestIndex, order) {
         this.guests[guestIndex].removeOrder(order);
+        return this;
     }
 
     showGuestOrder (guestIndex) {
@@ -45,6 +49,10 @@ export default class TableProfile {
 
     showGuestSpecialRequests (guestIndex) {
         return this.guests[guestIndex].getSpecialRequests();
+    }
+
+    updateSpecialRequests (request, guestIndex) {
+        this.guests[guestIndex].setSpecialRequests(request);
     }
 
     clearTable () {
@@ -58,6 +66,7 @@ export default class TableProfile {
 
     setOrderAmount (guestIndex, order, newAmount) {
         this.guests[guestIndex].changeAmount(newAmount,order);
+        return this;
     }
 
     orderToString () {
@@ -71,6 +80,8 @@ export default class TableProfile {
                 }
                 guestOrder += temp[temp.length - 1].name;
                 allOrders.push(guestOrder);
+            } else if (guest.specialRequests.length > 0) {
+                allOrders.push("N/A")
             }
         })
         return allOrders;

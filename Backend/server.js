@@ -1,6 +1,3 @@
-//import TableProfile from './BEconstructors/TableProfile';
-//import MenuItem from './BEconstructors/MenuItem';
-
 const express = require('express');
 const app = express();
 var bodyParser = require('body-parser');
@@ -14,7 +11,13 @@ app.use(cors({
 }));
 
 app.get('/api', function(req, res){   //handle get requests
-  return res.json(menuItems);    
+  switch (req.headers.reqtype) {
+    case "get-menu":
+    return res.json(menuItems);   
+    case "get-num-of-tables":
+      return res.json(numOfTables)
+  }
+   
 });
 
 
@@ -33,16 +36,9 @@ app.listen(5000, () => console.log("server started on port 5000"));
 
 //Table Data
 
-const numOfTables = 12;     //if more tables are added, change this number
+const numOfTables = 12;     //if more tables are added to restaurant, change this number
 
-const startingArrOfTables = (num) => {      //initializes array of tables so it's length is the same as the number of tables
-  var arr = [];
-  arr.length = num - 1;
-  return arr;}
- 
-var tables = startingArrOfTables(numOfTables);    //initialization
-
-
+var tables = [];    //initialization of where table data is stored
 
 //Menu Data
 
@@ -54,7 +50,7 @@ class MenuItem {
   }
 }
 
-var menu = [];    //initialization
+//add new Menu items here
 
 const chicken = new MenuItem("Chicken",["French Fries", "Pickle"]);
 const steak = new MenuItem("Steak");

@@ -1,18 +1,25 @@
-const headers = (newHeader) => {
-    return {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*", newHeader};
-}
+const defaultHeaders = {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"};
 
 exports.getMenu = () => {
     const res = fetch("/api", {
-      headers: headers({ reqType: "get-menu" }),
+      headers: {defaultHeaders, "reqType": "get-menu"},
     });
     const data = res;
     return data;
   };
 
+  exports.getNumOfTables = () => {
+    const res = fetch("/api", {
+      headers: {defaultHeaders, "reqType": "get-num-of-tables"},
+    });
+    const data = res;
+    return data;
+  };
+
+
 exports.getTables = () => {
     fetch('/api', {
-        headers: headers({"reqType": "get-tables"}),
+        headers: {defaultHeaders,"reqType": "get-tables"},
     }).then(
         response => response.json()).then(
         data => {
@@ -23,7 +30,7 @@ exports.getTables = () => {
 exports.addTable = (data) => {
     fetch('http://localhost:5000/api', {
         method: 'POST',
-        headers: headers({"reqType": "new-table"}),
+        headers: {defaultHeaders,"reqType": "new-table"},
         body: JSON.stringify(data)
     }) 
 }
@@ -32,7 +39,7 @@ exports.addTable = (data) => {
 exports.removeTable = (data) => {
     fetch('http://localhost:5000/api', {
         method: 'POST',
-        headers: headers({"reqType": "remove-table"}),
+        headers: {defaultHeaders, "reqType": "remove-table"},
         body: JSON.stringify(data)
     }) 
 }

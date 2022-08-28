@@ -19,6 +19,10 @@ export default class Guest {
     getSpecialRequests () {
         return this.specialRequests;
     }
+
+    setSpecialRequests(req) {
+        this.specialRequests = req;
+    }
     
     addOrder (order) {
         this.orders.push(order);
