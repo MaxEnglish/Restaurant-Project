@@ -11,9 +11,9 @@ function Home () {
                 name='Create Check'
                 />
             </Link>
-            <Link to="/manage-order">
+            <Link to="/manage-tables">
                 <Option
-                name='Manage Order'
+                name='Manage Tables'
                 />
             </Link>
             <Link to="/take-order">

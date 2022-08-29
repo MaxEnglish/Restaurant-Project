@@ -60,17 +60,17 @@ function TakeOrder() {
 
     return (
         <>
-            <HomeButton tab={tab} onClick={()=> {setConfirm(true)}}/>
+            <HomeButton tab={tab} onClick={() => { setConfirm(true) }} />
             {confirm && (
                 <>
-                   <div className='outside-container'></div>
+                    <div className='outside-container'></div>
                     <div className='buttons-wrapper'>
                         <div>Are you sure you want to go home? This order will not be saved</div>
                         <Link to="/">
-                        <button className='yes-button'>Yes</button>
+                            <button className='yes-button'>Yes</button>
                         </Link>
-                        <button className='no-button' onClick={()=> {setConfirm(false)}}>No</button>
-                    </div> 
+                        <button className='no-button' onClick={() => { setConfirm(false) }}>No</button>
+                    </div>
                 </>
             )}
             {specialReq && (
@@ -223,13 +223,15 @@ function TakeOrder() {
                         }}
                     >Previous Customer
                     </button>
-                    <button
-                        className='new-customer-button'
-                        onClick={() => {
-                            sendTable(table);
-                        }}
-                    >Submit Order
-                    </button>
+                    <Link to="/">
+                        <button
+                            className='new-customer-button'
+                            onClick={() => {
+                                sendTable(table);
+                            }}
+                        >Submit Order
+                        </button>
+                    </Link>
                 </div>
             )}
         </>
