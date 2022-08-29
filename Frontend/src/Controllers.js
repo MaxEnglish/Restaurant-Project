@@ -28,10 +28,12 @@ exports.getTables = () => {
 }
 
 exports.addTable = (data) => {
+  console.log(data)
+  console.log(JSON.stringify(data))
     fetch('http://localhost:5000/api', {
         method: 'POST',
-        headers: {defaultHeaders,"reqType": "new-table"},
-        body: JSON.stringify(data)
+        headers: {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*","reqType": "new-table"},
+        body: data
     }) 
 }
 

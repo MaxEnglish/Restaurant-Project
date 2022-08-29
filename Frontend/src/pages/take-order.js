@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/take-order.css';
 import Table from '../components/table';
 import MenuItem from '../components/menu-item';
@@ -28,6 +29,11 @@ function TakeOrder() {
                     setTables(initializeTables(data))
                 })
     }
+
+    const sendTable = (data) => {
+        API.addTable(JSON.stringify(data));
+    }
+
     useEffect(() => {
         getNumOfTables();
     }, [])
@@ -37,7 +43,9 @@ function TakeOrder() {
     const [table, setTable] = useState();   //the current table being modified
     const [guestIndex, setGuestIndex] = useState(0);    //corrosponds to guest that am currently servin
     const [tab, setTab] = useState('tables');
-    const [specialReq, setSpecialReq] = useState(false);
+
+    const [specialReq, setSpecialReq] = useState(false);    //boolean show special requests input field
+    const [confirm, setConfirm] = useState(false);
 
     const [displayMenu, setDisplayMenu] = useState([]);    //static
     const [filteredMenu, setFilteredMenu] = useState([]);   //dynamic
@@ -52,6 +60,19 @@ function TakeOrder() {
 
     return (
         <>
+            <HomeButton tab={tab} onClick={()=> {setConfirm(true)}}/>
+            {confirm && (
+                <>
+                   <div className='outside-container'></div>
+                    <div className='buttons-wrapper'>
+                        <div>Are you sure you want to go home? This order will not be saved</div>
+                        <Link to="/">
+                        <button className='yes-button'>Yes</button>
+                        </Link>
+                        <button className='no-button' onClick={()=> {setConfirm(false)}}>No</button>
+                    </div> 
+                </>
+            )}
             {specialReq && (
                 <InputForm
                     value={table.showGuestSpecialRequests(guestIndex)}
@@ -63,7 +84,6 @@ function TakeOrder() {
                     }}
                 />
             )}
-            <HomeButton tab={tab} />
             {tab === "tables" && (
                 <div className='tables-container'>
                     {tables.map((myTable, index) => (    //maps through tables constant and creates numbered table elements
@@ -206,7 +226,7 @@ function TakeOrder() {
                     <button
                         className='new-customer-button'
                         onClick={() => {
-
+                            sendTable(table);
                         }}
                     >Submit Order
                     </button>

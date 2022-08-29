@@ -150,4 +150,40 @@
     padding: 0;
 }
 
+.buttons-wrapper {
+    z-index: 1000;
+    opacity: 1;
+    position: absolute;
+    width: 25%;
+    height: 20%;
+    top: 35%;
+    left: 35%;
+    box-shadow: 3px;   
+    border-radius: 5px;
+    background-color: white;
+    padding: 1%;
+}
+
+.no-button {
+    position: relative;
+    top: 40%;
+    left: -25%;
+    width: 35%;
+    height: 25%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.yes-button {
+    position: relative;
+    top: 40%;
+    left: 55%;
+    width: 35%;
+    height: 25%;
+    border: 1px solid black;
+    background-color: gray;
+    border-radius: 10px;
+    cursor: pointer;
+}
 

@@ -3,7 +3,7 @@ const app = express();
 var bodyParser = require('body-parser');
 const cors = require('cors');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
@@ -22,11 +22,12 @@ app.get('/api', function(req, res){   //handle get requests
 
 
 app.post('/api', function (req, res) {    //handle post requests
-  console.log(req.body);
-  var table = req.body;
-  tables.push(table);
-  console.log(tables);
-  return res.send('Table has been added successfully');
+  switch (req.headers.reqtype) {
+    case "new-table":
+      tables.push(req.body);
+      console.log(tables);
+      res.send("Table Added!")
+  }
 });
 
 
