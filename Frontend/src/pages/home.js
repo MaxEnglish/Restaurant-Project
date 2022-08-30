@@ -6,9 +6,9 @@ import Option from '../components/option';
 function Home () {
     return(
         <>
-            <Link to="/create-check">
+            <Link to="/take-order">
                 <Option 
-                name='Create Check'
+                name='Take Order'
                 />
             </Link>
             <Link to="/manage-tables">
@@ -16,9 +16,9 @@ function Home () {
                 name='Manage Tables'
                 />
             </Link>
-            <Link to="/take-order">
+            <Link to="/create-check">
                 <Option 
-                name='Take Order'
+                name='Create Check'
                 />
             </Link>
         </>

@@ -187,3 +187,8 @@
     cursor: pointer;
 }
 
+.no-orders {
+    margin-left: 12%;
+    margin-top: 15%;
+    font-size: 150%;
+}

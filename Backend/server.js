@@ -30,7 +30,9 @@ app.post('/api', function (req, res) {    //handle post requests
       res.send("Table Added!");
       break;
     case "replace-table":
+      //console.log(tables)
       let msg = replaceTable(req.body);
+      console.log(tables)
       res.json(msg);
       break;
   }

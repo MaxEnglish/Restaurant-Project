@@ -105,11 +105,9 @@ function TakeOrder() {
                                 id="search"
                                 className="searchbar"
                                 onChange={(newVal) => {     //when searchbar has input, it will filter the results
-                                    var items = searchFunc(newVal.target.value, displayMenu);
-                                    setFilteredMenu(items);
+                                    setFilteredMenu(searchFunc(newVal.target.value, displayMenu));
                                 }}
                             ></input>
-
                             <div className='menu-header'>
                                 <div className='left-header'>Dish</div>
                                 <div className='right-header'>Sides</div>

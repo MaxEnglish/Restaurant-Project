@@ -45,6 +45,7 @@ exports.removeTable = (data) => {
 }
 
 exports.replaceTable = (data) => {
+  console.log(data)
   fetch('http://localhost:5000/api', {
     method: 'POST',
     headers: { defaultHeaders, "reqType": "replace-table" },
