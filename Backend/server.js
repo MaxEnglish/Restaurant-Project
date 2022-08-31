@@ -30,9 +30,7 @@ app.post('/api', function (req, res) {    //handle post requests
       res.send("Table Added!");
       break;
     case "replace-table":
-      //console.log(tables)
-      let msg = replaceTable(req.body);
-      console.log(tables)
+      var msg = replaceTable(req.body);
       res.json(msg);
       break;
   }
@@ -50,15 +48,15 @@ const numOfTables = 12;     //if more tables are added to restaurant, change thi
 var tables = [];    //initialization of where table data is stored
 
 const replaceTable = (newTable) => {
-  var tableName = newTable.name;
+  var newTableName = newTable.name;
   var done = false;
-  var count = 0;
-  while (count < tables.length && !done) {
-    if (tableName === tables[count].name) {
+  var index = 0;
+  while (index < tables.length && !done) {
+    if (newTableName === tables[index].name) {
       done = true;
-      tables.splice(count, 1, newTable);
+      tables.splice(index, 1, newTable);
     }
-    count++;
+    index++;
   }
   if (done) {
     return "Sucess!";
@@ -71,17 +69,19 @@ const replaceTable = (newTable) => {
 
 class MenuItem {
 
-  constructor(name, sides = []) {
+  constructor(name, price, type, sides = []) {
       this.name = name;
       this.sides = sides;
+      this.price = price;
+      this.type = type;
   }
 }
 
 //add new Menu items here
 
-const chicken = new MenuItem("Chicken",["French Fries", "Pickle"]);
-const steak = new MenuItem("Steak");
-const clamChowder = new MenuItem("Clam Chowder",["Oyster Crackers"]);
+const chicken = new MenuItem("Chicken","$14.00", "entree",["French Fries", "Pickle"]);
+const steak = new MenuItem("Steak","$20.00","entree");
+const clamChowder = new MenuItem("Clam Chowder","$9.00", "appetizer", ["Oyster Crackers"]);
 
 var menuItems = [
 chicken,

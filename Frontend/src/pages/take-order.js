@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import '../css/take-order.css';
+import '../css/universal.css';
 import Table from '../components/table';
 import MenuItem from '../components/menu-item';
 import HomeButton from '../components/home-button';
@@ -12,6 +12,20 @@ import InputForm from '../components/input-form'
 var API = require('../Controllers');
 
 function TakeOrder() {
+
+    const [tables, setTables] = useState([]);    //corrosponds table elements, not TableProfiles
+
+    const [table, setTable] = useState();   //the current table being modified
+    const [guestIndex, setGuestIndex] = useState(0);    //corrosponds to guest that am currently servin
+    const [tab, setTab] = useState('tables');
+
+    const [specialReq, setSpecialReq] = useState(false);    //boolean show special requests input field
+    const [confirm, setConfirm] = useState(false);
+
+    const [displayMenu, setDisplayMenu] = useState([]);    //static
+    const [filteredMenu, setFilteredMenu] = useState([]);   //dynamic
+
+    const [, forceUpdate] = useReducer(x => x + 1, 0);  //forces the rerendering of an element
 
     const getMenu = () => {
         API.getMenu().then(
@@ -37,19 +51,6 @@ function TakeOrder() {
     useEffect(() => {
         getNumOfTables();
     }, [])
-
-    const [tables, setTables] = useState([]);    //corrosponds table elements, not TableProfiles
-
-    const [table, setTable] = useState();   //the current table being modified
-    const [guestIndex, setGuestIndex] = useState(0);    //corrosponds to guest that am currently servin
-    const [tab, setTab] = useState('tables');
-
-    const [specialReq, setSpecialReq] = useState(false);    //boolean show special requests input field
-    const [confirm, setConfirm] = useState(false);
-
-    const [displayMenu, setDisplayMenu] = useState([]);    //static
-    const [filteredMenu, setFilteredMenu] = useState([]);   //dynamic
-    const [, forceUpdate] = useReducer(x => x + 1, 0);  //forces the rerendering of an element
 
     const sendToOrders = (newTable) => {    //uses newly created TableProfile object and assigns is to the table state
         getMenu();

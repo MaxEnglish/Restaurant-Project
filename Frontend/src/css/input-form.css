@@ -1,14 +1,3 @@
-.outside-container{
-    z-index: 999;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: lightgray;
-    opacity: .8;
-    margin: 0;
-    padding: 0;
-}
-
 .cancel-button {
     z-index: 1000;
     position: absolute;

@@ -1,0 +1,9 @@
+.button-format {
+    width: 35%;
+    height: 55%;
+    margin-left: 9%;
+    margin-top: 9%;
+    font-size: 150%;
+    text-align: center;
+    cursor: pointer;
+}

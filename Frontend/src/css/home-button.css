@@ -9,6 +9,7 @@
     top: 1%;
     text-align: center;
     cursor: pointer;
+    z-index: 1;
 }
 
 .box:hover {
