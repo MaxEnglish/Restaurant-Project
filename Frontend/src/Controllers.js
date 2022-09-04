@@ -23,6 +23,14 @@ exports.getTables = () => {
   return data;
 }
 
+exports.getTable = (tableName) => {
+  const res = fetch('/api', {
+    headers: { "reqType": "get-table" },
+  });
+  const data = res;
+  return data;
+}
+
 exports.addTable = (data) => {
   fetch('http://localhost:5000/api', {
     method: 'POST',

@@ -18,8 +18,12 @@
     margin-bottom: 6%;
 }
 
-.backgrounded {
+.backgrounded-red {
     background-color: red;
+}
+
+.backgrounded-blue {
+    background-color: lightblue;
 }
 
 

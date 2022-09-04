@@ -157,12 +157,13 @@ function ManageTables() {
 
                             <div className='menu-header'>
                                 <div className='left-header'>Dish</div>
-                                <div className='right-header'>Sides</div>
+                                <div className='right-header'>Price</div>
                             </div>
                             {filteredMenu.map((menuItem, index) => (    //displaying the filtered results
                                 <MenuItem key={index}
                                     name={menuItem.name}
                                     sides={menuItem.sides}
+                                    price={menuItem.price}
                                     onClick={() => {
                                         if (checkIfOrderExists(menuItem, table.guests[guestIndex].orders)) {
                                             console.log("Order already exists")

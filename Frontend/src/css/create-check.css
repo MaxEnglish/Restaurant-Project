@@ -52,6 +52,7 @@
 }
 
 .check-header1 {
+    z-index: 999;
     position: relative;
     left: 1%;
     top: 1%;
@@ -80,6 +81,19 @@
     font-size: 150%;
 }
 
+.check-header4 {
+    z-index: 999;
+    position: relative;
+    left: 2%;
+    top: 1%;
+    height: 80%;
+    margin-top: .5%;
+    padding: 9px;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .moving-screen {
     z-index: 999;
     position: absolute;
@@ -97,9 +111,13 @@
     position: absolute;
     bottom: 1%;
     font-size: 200%;
-    left: 30%;
     z-index: 1000;
     cursor: default;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
 }
 
 .backgrounded {
@@ -113,4 +131,35 @@
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 6%;
+}
+
+.done-button {
+    z-index: 1000;
+    position: absolute;
+    top: 1.5%;
+    left: 1%;
+    padding: 9px;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 11%;
+    text-align: center;
+}
+
+.cancel-btn {
+    z-index: 1000;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    color: red;
+    cursor: pointer;
+    border: none;
+    height: 7%;
+    background-color: #e0dcdc;
+    width: 3%;
+    text-align: center;
+}
+
+.cancel-btn:hover {
+    color: maroon;
 }

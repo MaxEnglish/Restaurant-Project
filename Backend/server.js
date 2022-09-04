@@ -13,13 +13,17 @@ app.use(cors({
 app.get('/api', function(req, res){   //handle get requests
   switch (req.headers.reqtype) {
     case "get-menu":
-    return res.json(menuItems);   
+    return res.json(menuItems); 
+    break;  
     case "get-num-of-tables":
       return res.json(numOfTables);
+      break;
     case "get-tables":
       return res.json(tables);
+      break;
+    case "get-table":
+      return res.json(tables);
   }
-   
 });
 
 
@@ -30,7 +34,7 @@ app.post('/api', function (req, res) {    //handle post requests
       res.send("Table Added!");
       break;
     case "replace-table":
-      var msg = replaceTable(req.body);
+      let msg = replaceTable(req.body);
       res.json(msg);
       break;
   }
@@ -79,7 +83,7 @@ class MenuItem {
 
 //add new Menu items here
 
-const chicken = new MenuItem("Chicken","$14.00", "entree",["French Fries", "Pickle"]);
+const chicken = new MenuItem("Chicken","$14.00", "entree",["French Fries", " Pickle"]);
 const steak = new MenuItem("Steak","$20.00","entree");
 const clamChowder = new MenuItem("Clam Chowder","$9.00", "appetizer", ["Oyster Crackers"]);
 
