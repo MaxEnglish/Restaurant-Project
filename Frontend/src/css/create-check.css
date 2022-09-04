@@ -79,3 +79,38 @@
     margin-bottom: 0;
     font-size: 150%;
 }
+
+.moving-screen {
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: lightgray;
+    opacity: .7;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.moving-msg {
+    position: absolute;
+    bottom: 1%;
+    font-size: 200%;
+    left: 30%;
+    z-index: 1000;
+    cursor: default;
+}
+
+.backgrounded {
+    background-color: red;
+}
+
+.check-order-box {
+    width: 90%;
+    padding: 2%;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 6%;
+}

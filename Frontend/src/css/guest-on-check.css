@@ -18,7 +18,16 @@
     margin-bottom: 6%;
 }
 
+.backgrounded {
+    background-color: red;
+}
+
+
 .check-price {
     margin-top: 2%;
     margin-bottom: 5%;
+}
+
+.selected {
+    cursor: pointer;
 }
