@@ -13,7 +13,8 @@ var API = require('../Controllers');
 
 function TakeOrder() {
 
-    const [tables, setTables] = useState([]);    //corrosponds table elements, not TableProfiles
+    const [tables, setTables] = useState([]);    //corrosponds to table elements, not TableProfiles
+    const [takenTables, setTakenTables] = useState([]);
 
     const [table, setTable] = useState();   //the current table being modified
     const [guestIndex, setGuestIndex] = useState(0);    //corrosponds to guest that am currently servin
@@ -21,6 +22,7 @@ function TakeOrder() {
 
     const [specialReq, setSpecialReq] = useState(false);    //boolean show special requests input field
     const [confirm, setConfirm] = useState(false);
+    const [override, setOverride] = useState({status: false, table: {}});
 
     const [displayMenu, setDisplayMenu] = useState([]);    //static
     const [filteredMenu, setFilteredMenu] = useState([]);   //dynamic
@@ -40,7 +42,8 @@ function TakeOrder() {
         API.getNumOfTables().then(
             response => response.json()).then(
                 data => {
-                    setTables(initializeTables(data))
+                    setTables(initializeTables(data.amount))
+                    setTakenTables(data.filledTables)
                 })
     }
 
@@ -53,10 +56,14 @@ function TakeOrder() {
     }, [])
 
     const sendToOrders = (newTable) => {    //uses newly created TableProfile object and assigns is to the table state
-        getMenu();
-        newTable.addGuest();
-        setTable(newTable);
-        setTab('orders');
+        if (checkTableFilled(takenTables, newTable.name)) {
+            setOverride({status: true, table: newTable});
+        } else {
+            getMenu();
+            newTable.addGuest();
+            setTable(newTable);
+            setTab('orders');
+        }
     }
 
     return (
@@ -85,10 +92,34 @@ function TakeOrder() {
                     }}
                 />
             )}
+            {override.status && (
+                <>
+                    <div className='outside-container'></div>
+                    <div className='buttons-wrapper'>
+                        <div>An order already exists for this table. Would you like to overwrite it?</div>
+                        <button 
+                        className='yes-button' 
+                        onClick={()=> { 
+                            getMenu();
+                            let tempTable = override.table;
+                            setOverride({status: false, table: {}})
+                            tempTable.clearTable();
+                            tempTable.addGuest();
+                            setTable(tempTable);
+                            setTab('orders');
+                        }}
+                        >Yes
+                        </button>
+                        
+                        <button className='no-button' onClick={() => { setOverride({status: false, table: {}}) }}>No</button>
+                    </div>
+                </>
+            )}
             {tab === "tables" && (
                 <div className='tables-container'>
                     {tables.map((myTable, index) => (    //maps through tables constant and creates numbered table elements
                         <Table key={index}
+                            taken={checkTableFilled(takenTables, index)}
                             name={myTable}
                             onClick={() => {
                                 sendToOrders(new TableProfile(index));
@@ -273,6 +304,15 @@ const checkIfOrderExists = (order, orders) => {
         count++;
     }
     return exists;
+}
+
+const checkTableFilled = (tables, tableName) => {
+    for (const num in tables) {
+        if (tables[num] === tableName) {
+            return true;
+        }
+    }
+    return false;
 }
 
 ///////

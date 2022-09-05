@@ -5,7 +5,7 @@ function Table (props) {
     return (
         <>
             <div 
-            className="table"
+            className={props.taken ? "taken-table" : "table"}
             onClick={props.onClick}
             >
                 {props.name}

@@ -6,9 +6,21 @@
     margin: auto;
     text-align: center;
     line-height: 6;
+    cursor: pointer;
 }
 
 .table:hover {
     background-color: gray;
+}
+
+.taken-table {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    margin: auto;
+    text-align: center;
+    line-height: 6;
+    background-color: salmon;
     cursor: pointer;
 }

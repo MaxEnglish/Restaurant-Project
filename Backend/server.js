@@ -13,14 +13,11 @@ app.use(cors({
 app.get('/api', function(req, res){   //handle get requests
   switch (req.headers.reqtype) {
     case "get-menu":
-    return res.json(menuItems); 
-    break;  
+    return res.json(menuItems);  
     case "get-num-of-tables":
-      return res.json(numOfTables);
-      break;
+      return res.json({amount: numOfTables, filledTables: getTableNames()});
     case "get-tables":
       return res.json(tables);
-      break;
     case "get-table":
       return res.json(tables);
   }
@@ -67,6 +64,14 @@ const replaceTable = (newTable) => {
   } else {
     return "Failure";
   }
+}
+
+const getTableNames = () => {
+  var names = [];
+  tables.forEach((table)=> {
+    names.push(table.name);
+  })
+  return names;
 }
 
 //Menu Data
