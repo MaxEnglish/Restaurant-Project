@@ -5,26 +5,26 @@ import BigButton from '../components/big-button';
 import Table from '../components/table'
 import HomeButton from '../components/home-button';
 import '../css/create-check.css';
-import { FaSadTear } from 'react-icons/fa';
 import '../css/guest-on-check.css';
+import { FaSadTear } from 'react-icons/fa';
 import { TiDelete } from 'react-icons/ti'
 var API = require('../Controllers');
 
 function CreateCheck() {
 
     const [tab, setTab] = useState("tables");
-    const [tables, setTables] = useState([]);
-    const [table, setTable] = useState();
+    const [tables, setTables] = useState([]);   //array of table elements, not objects
+    const [table, setTable] = useState();       //represents current table
     const [confirm, setConfirm] = useState(false);  //used for home button confirm
     const [moving, setMoving] = useState(false);    //true when moving orders
     const [clicked, setClicked] = useState({ order: '', amount: 0, index: -1, guestIndex: -1 });    //means of storing data when something is clicked then deleted or is no longer easy to reference
     const [percenting, setPercenting] = useState('');   //true when splitting an order by percent
     const [splitWith, setSplitWith] = useState([]);     //array of customers who are splitting the bill
-    const [parentEl, setParentEl] = useState();     //auxiliarry state to aid background changes
+    const [reviewIndex, setReviewIndex] = useState(0);
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);  //forces the rerendering of an element
 
-    const getTables = () => {
+    const getTables = () => {       //returns table data from the backend
         API.getTables().then(
             response => response.json()).then(
                 data => {
@@ -32,7 +32,7 @@ function CreateCheck() {
                 })
     }
 
-    const getTable = () => {
+    const getTable = () => {        //returns a specific table
         API.getTable().then(
             response => response.json()).then(
                 data => {
@@ -54,10 +54,9 @@ function CreateCheck() {
                 <div className='check-price'>Price: {props.price}</div>
                 {props.orders.map((order, index) => (
                     <div
-                        className={(clicked.order === order && index === clicked.index && parentEl === clicked.guestIndex) ? 'check-order-box backgrounded-red' : 'check-order-box'}
+                        className={(clicked.order === order && index === clicked.index && props.parentIndex === clicked.guestIndex) ? 'check-order-box backgrounded-red' : 'check-order-box'}
                         key={index}
                         onClick={() => {
-                            setParentEl(props.parentIndex);
                             var amount = props.amounts[index];
                             var guestIndex = props.parentIndex;
                             if (!moving && percenting.length < 1) {
@@ -125,7 +124,9 @@ function CreateCheck() {
                         <button
                             className='check-header4'
                             onClick={() => {
-                                getTable(table.name);
+                                if (!percenting && !moving) {
+                                    getTable(table.name);
+                                }
                             }}
                         >Reset changes
                         </button>
@@ -138,21 +139,30 @@ function CreateCheck() {
                                 orders={guest.orders}
                                 amounts={guest.amounts}
                                 parentIndex={index}
+                                price={calcPrice(guest.orders, guest.amounts)}
                                 onClick={() => {
                                     if (moving && index !== clicked.guestIndex) {
                                         let tempTable = table;
-                                        if (clicked.amount === 1) {     //handle removing an order after a move
+                                        if (clicked.amount <= 1) {     //handle removing an order after a move
                                             tempTable.guests[clicked.guestIndex].orders.splice(clicked.index, 1);
                                             tempTable.guests[clicked.guestIndex].amounts.splice(clicked.index, 1);
                                         } else {
-                                            tempTable.guests[clicked.guestIndex].amounts[clicked.index]--;
+                                            tempTable.guests[clicked.guestIndex].amounts[clicked.index] = (parseFloat(tempTable.guests[clicked.guestIndex].amounts[clicked.index]) - 1.0).toFixed(2);
                                         }
 
                                         if (hasOrder(tempTable.guests[index].orders, clicked.order)) {      //handle adding an order after a move
-                                            tempTable.guests[index].amounts[ordersToNames(tempTable.guests[index].orders).indexOf(clicked.order.name)]++;
+                                            if (clicked.amount < 1) {
+                                                tempTable.guests[index].amounts[ordersToNames(tempTable.guests[index].orders).indexOf(clicked.order.name)] = parseFloat(tempTable.guests[index].amounts[ordersToNames(tempTable.guests[index].orders).indexOf(clicked.order.name)]) + parseFloat(clicked.amount);
+                                            } else {
+                                                tempTable.guests[index].amounts[ordersToNames(tempTable.guests[index].orders).indexOf(clicked.order.name)]++;
+                                            }
                                         } else {
                                             tempTable.guests[index].orders.push(clicked.order);
-                                            tempTable.guests[index].amounts.push(1);
+                                            if (clicked.amount < 1) {
+                                                tempTable.guests[index].amounts.push(clicked.amount);
+                                            } else {
+                                                tempTable.guests[index].amounts.push(1);
+                                            }
                                         }
                                         setTable(tempTable)
                                         setMoving(false);
@@ -172,6 +182,23 @@ function CreateCheck() {
                             />
                         ))}
                     </div>
+                    <button
+                    className='present'
+                    onClick={()=> {
+                        if (!percenting && !moving) {
+                            setReviewIndex(0);
+                            setTab("customer-review")
+                        }
+                    }}
+                    >Present to customer
+                    </button>
+                </div>
+            )}
+            {tab === "customer-review" && (
+                <div>
+                    {table.guests[reviewIndex].orders.map((order, index) => (
+                        <div key={index}>{order.name}</div>
+                    ))}
                 </div>
             )}
             {moving && (
@@ -226,13 +253,11 @@ export default CreateCheck;
 
 
 const hasOrder = (orders, item) => {
-    var val = false;
-    for (let i = 0; i < orders.length; i++) {
-        if (orders[i].name === item.name) {
-            val = true;;
-        }
+    if (orders.filter(order=>order.name === item.name).length > 0) {
+        return true;
+    } else {
+        return false
     }
-    return val;
 }
 
 const ordersToNames = (orders) => {
@@ -244,21 +269,26 @@ const ordersToNames = (orders) => {
 }
 
 const checkIfContains = (guestIndex, guestIndeces) => {
-    var val = false;
-    for (let i = 0; i < guestIndeces.length; i++) {
-        if (guestIndeces[i] === guestIndex) {
-            val = true;;
-        }
+    if (guestIndeces.filter(guestI=>guestI === guestIndex).length > 0) {
+        return true;
+    } else {
+        return false
     }
-    return val;
 }
 
 const findOldTable = (newTableName, oldTables) => {
-    var data = null;
-    for (let i = 0; i < oldTables.length; i++) {
-        if (oldTables[i].name === newTableName) {
-            data = oldTables[i];
-        }
+    var temp = oldTables.filter(oldTable=> oldTable.name === newTableName);
+    if (temp.length > 0) {
+        return temp[0];
+    } else {
+        return null;
     }
-    return data;
+}
+
+const calcPrice = (orders, amounts) => {
+    var total = 0.0;
+    for (let i = 0; i < orders.length; i++) {
+        total += parseFloat(orders[i].price) * parseFloat(amounts[i])
+    }
+    return "$" + (total).toFixed(2);
 }

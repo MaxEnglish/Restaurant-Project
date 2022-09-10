@@ -88,9 +88,9 @@ class MenuItem {
 
 //add new Menu items here
 
-const chicken = new MenuItem("Chicken","$14.00", "entree",["French Fries", " Pickle"]);
-const steak = new MenuItem("Steak","$20.00","entree");
-const clamChowder = new MenuItem("Clam Chowder","$9.00", "appetizer", ["Oyster Crackers"]);
+const chicken = new MenuItem("Chicken","14.00", "entree",["French Fries", " Pickle"]);
+const steak = new MenuItem("Steak","20.00","entree");
+const clamChowder = new MenuItem("Clam Chowder","9.00", "appetizer", ["Oyster Crackers"]);
 
 var menuItems = [
 chicken,

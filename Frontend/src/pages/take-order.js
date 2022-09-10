@@ -148,7 +148,7 @@ function TakeOrder() {
                                 <MenuItem key={index}
                                     name={menuItem.name}
                                     sides={menuItem.sides}
-                                    price={menuItem.price}
+                                    price={"$" + menuItem.price}
                                     onClick={() => {
                                         if (checkIfOrderExists(menuItem, table.showGuestOrder(guestIndex))) {
                                             console.log("Order already exists")
